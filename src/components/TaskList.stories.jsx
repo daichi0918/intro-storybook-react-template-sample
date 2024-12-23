@@ -4,6 +4,15 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '3rem' }}>
+        {/* <Story /> */}
+        {Story()}
+      </div>
+    ),
+  ],
 };
 
 export const Default = {
@@ -40,5 +49,32 @@ export const Default = {
         title: 'Task 6',
       },
     ],
+  },
+};
+
+export const WithPinnedTasks = {
+  args: {
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      {
+        id: '6',
+        title: 'Task 6 (pinned)',
+        state: 'TASK_PINNED',
+      },
+    ],
+  },
+};
+
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
+};
+
+export const Empty = {
+  args: {
+    ...Loading.args,
+    loading: false,
   },
 };
