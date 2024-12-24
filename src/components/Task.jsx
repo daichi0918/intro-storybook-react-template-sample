@@ -1,4 +1,8 @@
-export default function Task({ task: { id, title, state } }) {
+export default function Task({
+  task: { id, title, state },
+  onPinTask,
+  onArhiveTask,
+}) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -7,7 +11,10 @@ export default function Task({ task: { id, title, state } }) {
         aria-label={`archiveTask-${id}`}
       >
         <input type="checkbox" name="checked" id={`archiveTask-${id}`} />
-        <span className="checkbox-custom"></span>
+        <span
+          className="checkbox-custom"
+          onClick={() => onArhiveTask(id)}
+        ></span>
       </label>
       <label htmlFor="title" className="title" aria-label={title}>
         <input
@@ -24,6 +31,7 @@ export default function Task({ task: { id, title, state } }) {
           className="pin-button"
           id={`pinTask-${id}`}
           aria-label={`pinTask-${id}`}
+          onClick={() => onPinTask(id)}
         >
           <span className="icon-star"></span>
         </button>

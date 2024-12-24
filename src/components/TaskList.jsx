@@ -1,11 +1,10 @@
 import Task from './Task';
 import PropType from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTaskState } from '../lib/store';
 
-export default function TaskList({ loading }) {
+export default function TaskList() {
   const tasks = useSelector((state) => {
-    console.log('state');
-    console.log(state);
     const tasksInOrder = [
       ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
       ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
@@ -14,7 +13,20 @@ export default function TaskList({ loading }) {
       (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
     );
     return filterdTasks;
+    // return tasksInOrder;
   });
+
+  const { status } = useSelector((state) => state.taskbox);
+
+  const dispatch = useDispatch();
+
+  const pinTask = (value) => {
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
+  };
+
+  const archieveTask = (value) => {
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
+  };
   const loadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox"></span>
@@ -23,7 +35,7 @@ export default function TaskList({ loading }) {
       </span>
     </div>
   );
-  if (loading) {
+  if (status === 'loading') {
     return (
       <div className="list-items">
         {loadingRow}
@@ -51,7 +63,12 @@ export default function TaskList({ loading }) {
   return (
     <div className="list-items">
       {tasks.map((task) => (
-        <Task key={task.id} task={task} />
+        <Task
+          key={task.id}
+          task={task}
+          onPinTask={(task) => pinTask(task)}
+          onArhiveTask={(task) => archieveTask(task)}
+        />
       ))}
     </div>
   );
