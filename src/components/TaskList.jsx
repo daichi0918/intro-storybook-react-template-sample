@@ -1,7 +1,20 @@
 import Task from './Task';
 import PropType from 'prop-types';
+import { useSelector } from 'react-redux';
 
-export default function TaskList({ loading, tasks }) {
+export default function TaskList({ loading }) {
+  const tasks = useSelector((state) => {
+    console.log('state');
+    console.log(state);
+    const tasksInOrder = [
+      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
+      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ];
+    const filterdTasks = tasksInOrder.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+    return filterdTasks;
+  });
   const loadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox"></span>
