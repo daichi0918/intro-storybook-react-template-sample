@@ -18,7 +18,7 @@ export default {
   ],
 };
 
-const MockedState = {
+export const MockedState = {
   tasks: [
     {
       ...TaskStories.Default.args.task,

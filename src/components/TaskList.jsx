@@ -37,7 +37,7 @@ export default function TaskList() {
   );
   if (status === 'loading') {
     return (
-      <div className="list-items">
+      <div className="list-items" data-testid="loading" key={'loading'}>
         {loadingRow}
         {loadingRow}
         {loadingRow}
@@ -50,7 +50,7 @@ export default function TaskList() {
 
   if (tasks.length == 0) {
     return (
-      <div className="list-items">
+      <div className="list-items" data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
           <p className="title-message">You have no tasks</p>

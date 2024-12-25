@@ -8,12 +8,18 @@ export default function Task({
       <label
         htmlFor="checked"
         className="checkbox"
-        aria-label={`archiveTask-${id}`}
+        // aria-label={`archiveTask-${id}`}
       >
-        <input type="checkbox" name="checked" id={`archiveTask-${id}`} />
+        <input
+          type="checkbox"
+          name="checked"
+          id={`archiveTask-${id}`}
+          // aria-label={`archiveTask-${id}`}
+        />
         <span
           className="checkbox-custom"
           onClick={() => onArhiveTask(id)}
+          aria-label={`archiveTask-${id}`}
         ></span>
       </label>
       <label htmlFor="title" className="title" aria-label={title}>
