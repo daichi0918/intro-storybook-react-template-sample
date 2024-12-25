@@ -16,6 +16,7 @@ export default {
       </div>
     ),
   ],
+  excludeStories: /.*MockedState$/,
 };
 
 export const MockedState = {
@@ -72,7 +73,7 @@ const MockStore = ({ taskboxState, children }) => (
 
 export const Default = {
   decorators: [
-    (Story) => <MockStore taskboxState={MockedState}>{Story()}</MockStore>,
+    (Story) => <MockStore taskboxState={MockedState}>{<Story />}</MockStore>,
   ],
   // args: {
   //   tasks: [
@@ -112,14 +113,14 @@ export const Default = {
 
 export const WithPinnedTasks = {
   decorators: [
-    (story) => {
+    (Story) => {
       const pinnedTasks = [
         ...MockedState.tasks.slice(0, 5),
         { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
       ];
       return (
         <MockStore taskboxState={{ ...MockedState, tasks: pinnedTasks }}>
-          {story()}
+          {<Story />}
         </MockStore>
       );
     },
@@ -128,9 +129,9 @@ export const WithPinnedTasks = {
 
 export const Loading = {
   decorators: [
-    (story) => (
+    (Story) => (
       <MockStore taskboxState={{ ...MockedState, status: 'loading' }}>
-        {story()}
+        {<Story />}
       </MockStore>
     ),
   ],
@@ -138,9 +139,9 @@ export const Loading = {
 
 export const Empty = {
   decorators: [
-    (story) => (
+    (Story) => (
       <MockStore taskboxState={{ ...MockedState, tasks: [] }}>
-        {story()}
+        {<Story />}
       </MockStore>
     ),
   ],
