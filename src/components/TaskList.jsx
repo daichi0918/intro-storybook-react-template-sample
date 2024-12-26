@@ -1,5 +1,5 @@
 import Task from './Task';
-import PropType from 'prop-types';
+// import PropType from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTaskState } from '../lib/store';
 
